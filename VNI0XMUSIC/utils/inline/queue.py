@@ -105,7 +105,7 @@ def queuemarkup(_, vidid, chat_id):
         [
             InlineKeyboardButton(
                 text="๏ ᴍᴏʀᴇ ๏",
-                url="https://t.me/tabahi_tabahi",
+                url="https://t.me/HEROKU_CLUB",
             ),
         ],
     ]

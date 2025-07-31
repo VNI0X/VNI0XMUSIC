@@ -19,15 +19,17 @@ LOGGER_ID = int(getenv("LOGGER_ID", None))
 
 OWNER_ID = int(getenv("OWNER_ID", 7417167870))
 
+MUSIC_BOT_NAME = os.getenv("SANATAN DHARM MUSIC")
+
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
-UPSTREAM_REPO = getenv("UPSTREAM_REPO")
+UPSTREAM_REPO = getenv("https://github.com/VNI0X/VNI0XMUSIC")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
 GIT_TOKEN = getenv("GIT_TOKEN")
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/SANATANI_TECH")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SANATANI_SUPPORT")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/HEROKU_CLUB")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
 
 AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", True))
 
@@ -41,7 +43,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
 
 #_________________________[ YouTube API setup ]_________________________
 BASE_API_URL = getenv("BASE_API_URL", "https://pro.spotifytech.shop")
-BASE_API_KEY = getenv("BASE_API_KEY", "SANATANI_TECH")
+BASE_API_KEY = getenv("BASE_API_KEY", "8de65623506d05c51fcf90ee3e97102f")
 #________________________________________________________________________
 
 STRING1 = getenv("STRING_SESSION", None)

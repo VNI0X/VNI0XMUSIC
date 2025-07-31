@@ -1,55 +1,85 @@
 import re
+import os
 from os import getenv
+
 from dotenv import load_dotenv
 from pyrogram import filters
 
 load_dotenv()
 
-# Required Environment Variables
-API_ID = int(getenv("API_ID", "0"))
-API_HASH = getenv("API_HASH", "")
-BOT_TOKEN = getenv("BOT_TOKEN", "")
+# Get this value from my.telegram.org/apps
+API_ID = int(getenv("API_ID", None))
+API_HASH = getenv("API_HASH", None)
 
-# Optional Variables with Safe Defaults
+# Get your token from @BotFather on Telegram.
+BOT_TOKEN = getenv("BOT_TOKEN", None)
+
+# Get your mongo url from cloud.mongodb.com
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
-DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", "1500"))
-LOGGER_ID = int(getenv("LOGGER_ID", "0"))
-OWNER_ID = int(getenv("OWNER_ID", "7417167870"))
+MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", None)
+PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", None)
 
-# MUSIC_BOT_NAME should be a string, not an int
-MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", "SANATAN DHARM MUSIC")
+DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 900))
 
+# Chat id of a group for logging bot's activities
+LOGGER_ID = int(getenv("LOGGER_ID", None))
+
+# Get this value from @MissRose_Bot on Telegram by /id
+OWNER_ID = int(getenv("OWNER_ID", None))
+
+## Fill these variables if you're deploying on heroku.
+# Your heroku app name
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
+# Get it from http://dashboard.heroku.com/account
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 
-UPSTREAM_REPO = getenv("UPSTREAM_REPO", "https://github.com/VNI0X/VNI0XMUSIC")
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
-GIT_TOKEN = getenv("GIT_TOKEN")
+UPSTREAM_REPO = getenv(
+    "UPSTREAM_REPO",
+    "https://github.com/ARYANSONI9026/BestieMusicBot",
+)
+UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
+GIT_TOKEN = getenv(
+    "GIT_TOKEN", None
+)  # Fill this variable if your upstream repository is private
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/HEROKU_CLUB")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/Friends_Chatting_Group_Talking")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/Besties_friends_chatting_groups")
 
-AUTO_LEAVING_ASSISTANT = getenv("AUTO_LEAVING_ASSISTANT", "True").lower() == "true"
+# Set this to True if you want the assistant to automatically leave chats after an interval
+AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
 
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "6be9f0b34c384ad097cc71b1c1fc5e8b")
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "2607415f99944cc6b24fa98018fb8c09")
+# Auto Gcast/Broadcast Handler (True = broadcast on , False = broadcast off During Hosting, Dont Do anything here.)
+AUTO_GCAST = os.getenv("AUTO_GCAST")
 
+# Auto Broadcast Message That You Want Use In Auto Broadcast In All Groups.
+AUTO_GCAST_MSG = getenv("AUTO_GCAST_MSG", "")
+
+# Get this credentials from https://developer.spotify.com/dashboard
+SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "bcfe26b0ebc3428882a0b5fb3e872473")
+SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "907c6a054c214005aeae1fd752273cc4")
+
+
+# Maximum limit for fetching playlist's track from youtube, spotify, apple links.
+SERVER_PLAYLIST_LIMIT = int(getenv("SERVER_PLAYLIST_LIMIT", "50"))
 PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "25"))
-TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600"))
-TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824"))
 
-# YouTube API Setup
-BASE_API_URL = getenv("BASE_API_URL", "https://pro.spotifytech.shop")
-BASE_API_KEY = getenv("BASE_API_KEY", "8de65623506d05c51fcf90ee3e97102f")
+SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180"))
+SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "2000"))
 
-# Session Strings
-STRING1 = getenv("STRING_SESSION")
-STRING2 = getenv("STRING_SESSION2")
-STRING3 = getenv("STRING_SESSION3")
-STRING4 = getenv("STRING_SESSION4")
-STRING5 = getenv("STRING_SESSION5")
+# Telegram audio and video file size limit (in bytes)
+TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", 104857600))
+TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
+# Checkout https://www.gbmb.org/mb-to-bytes for converting mb to bytes
 
-# Banned Users and Admins
+
+# Get your pyrogram v2 session from @Strinng_Session_Bot on Telegram
+STRING1 = getenv("STRING_SESSION",  None)
+STRING2 = getenv("STRING_SESSION2", None)
+STRING3 = getenv("STRING_SESSION3", None)
+STRING4 = getenv("STRING_SESSION4", None)
+STRING5 = getenv("STRING_SESSION5", None)
+
+
 BANNED_USERS = filters.user()
 adminlist = {}
 lyrical = {}
@@ -57,7 +87,7 @@ votemode = {}
 autoclean = []
 confirmer = {}
 
-# Images
+
 START_IMG_URL = getenv("START_IMG_URL", "https://telegra.ph/file/1557a544d9b4f051f99c7-57891fa1d7578f5b79.jpg")
 PING_IMG_URL = getenv("PING_IMG_URL", "https://files.catbox.moe/uwstab.jpg")
 PLAYLIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
@@ -71,21 +101,23 @@ SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
 SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
 SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
 
-# Duration Logic
+
 def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60**i for i, x in enumerate(reversed(stringt.split(":"))))
 
+
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 
-# URL Checks
+
 if SUPPORT_CHANNEL:
-    if not re.match(r"(?:http|https)://", SUPPORT_CHANNEL):
-        raise SystemExit("[ERROR] - SUPPORT_CHANNEL URL is invalid. It must start with https://")
+    if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHANNEL url is wrong. Please ensure that it starts with https://"
+        )
 
 if SUPPORT_CHAT:
-    if not re.match(r"(?:http|https)://", SUPPORT_CHAT):
-        raise SystemExit("[ERROR] - SUPPORT_CHAT URL is invalid. It must start with https://")
-
-SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", 1800))  # default 30 minutes
-
+    if not re.match("(?:http|https)://", SUPPORT_CHAT):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHAT url is wrong. Please ensure that it starts with https://"
+        )

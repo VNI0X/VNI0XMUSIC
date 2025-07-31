@@ -435,14 +435,14 @@ class YouTubeAPI:
         def audio_dl(vid_id):
             try:
                 if not BASE_API_KEY:
-                    print("⚙️ API KEY not set in config, Set API Key you got from @KeyMakerRoBot")
+                    print("8de65623506d05c51fcf90ee3e97102f")
                     return None
                 if not BASE_API_URL:
-                    print("⚙️ API Endpoint not set in config Please set a valid endpoint for BASE_API_URL_URL in config.")
+                    print("https://xyz.spotifytech.shop")
                     return None
                 headers = {
-                    "x-api-key":f"https://xyz.spotifytech.shop",
-                    "User-Agent": "8de65623506d05c51fcf90ee3e97102f"
+                    "x-api-key": f"{BASE_API_KEY}",
+                    "User-Agent": "Mozilla/5"
                 }
                 xyz = os.path.join("downloads", f"{vid_id}.mp3")
                 if os.path.exists(xyz):
@@ -479,14 +479,14 @@ class YouTubeAPI:
         def video_dl(vid_id):
             try:
                 if not BASE_API_KEY:
-                    print("⚙️ API KEY not set in config, Set API Key you got from @KeyMakerRoBot")
+                    print("8de65623506d05c51fcf90ee3e97102f")
                     return None
                 if not BASE_API_URL:
-                    print("⚙️ API Endpoint not set in config Please set a valid endpoint for BASE_API_URL_URL in config.")
+                    print("https://xyz.spotifytech.shop")
                     return None
                 headers = {
-                    "x-api-key": f"https://xyz.spotifytech.shop",
-                    "User-Agent": "8de65623506d05c51fcf90ee3e97102f"
+                    "x-api-key": f"{BASE_API_KEY}",
+                    "User-Agent": "Mozilla/5"
                 }
                 xyz = os.path.join("downloads", f"{vid_id}.mp4")
                 if os.path.exists(xyz):
@@ -532,4 +532,47 @@ class YouTubeAPI:
                 "quiet": True,
                 "no_warnings": True,
                 "cookiefile" : cookie_txt_file(),
-                
+                "prefer_ffmpeg": True,
+                "merge_output_format": "mp4",
+            }
+            x = yt_dlp.YoutubeDL(ydl_optssx)
+            x.download([link])
+
+        def song_audio_dl():
+            fpath = f"downloads/{title}.%(ext)s"
+            ydl_optssx = {
+                "format": format_id,
+                "outtmpl": fpath,
+                "geo_bypass": True,
+                "nocheckcertificate": True,
+                "quiet": True,
+                "no_warnings": True,
+                "cookiefile" : cookie_txt_file(),
+                "prefer_ffmpeg": True,
+                "postprocessors": [
+                    {
+                        "key": "FFmpegExtractAudio",
+                        "preferredcodec": "mp3",
+                        "preferredquality": "192",
+                    }
+                ],
+            }
+            x = yt_dlp.YoutubeDL(ydl_optssx)
+            x.download([link])
+
+        if songvideo:
+            await loop.run_in_executor(None, song_video_dl)
+            fpath = f"downloads/{title}.mp4"
+            return fpath
+        elif songaudio:
+            await loop.run_in_executor(None, song_audio_dl)
+            fpath = f"downloads/{title}.mp3"
+            return fpath
+        elif video:
+            direct = True
+            downloaded_file = await loop.run_in_executor(None, lambda:video_dl(vid_id))
+        else:
+            direct = True
+            downloaded_file = await loop.run_in_executor(None, lambda:audio_dl(vid_id))
+        
+        return downloaded_file, direct

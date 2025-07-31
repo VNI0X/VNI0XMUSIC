@@ -26,7 +26,6 @@ UPSTREAM_REPO = getenv("UPSTREAM_REPO")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
 GIT_TOKEN = getenv("GIT_TOKEN")
 
-
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/SANATANI_TECH")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SANATANI_SUPPORT")
 
@@ -42,7 +41,7 @@ TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
 
 #_________________________[ YouTube API setup ]_________________________
 BASE_API_URL = getenv("BASE_API_URL", "https://pro.spotifytech.shop")
-BASE_API_KEY = getenv("BASE_API_KEY", "8de65623506d05c51fcf90ee3e97102f")
+BASE_API_KEY = getenv("BASE_API_KEY", "SANATANI_TECH")
 #________________________________________________________________________
 
 STRING1 = getenv("STRING_SESSION", None)
@@ -61,21 +60,22 @@ confirmer = {}
 
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://files.catbox.moe/fw3g7v.webp"
+    "START_IMG_URL", "https://telegra.ph/file/1557a544d9b4f051f99c7-57891fa1d7578f5b79.jpg"
 )
 PING_IMG_URL = getenv(
-    "PING_IMG_URL", "https://files.catbox.moe/bd8iwy.webp"
+    "PING_IMG_URL", "https://files.catbox.moe/uwstab.jpg"
 )
-PLAYLIST_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-STATS_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-TELEGRAM_AUDIO_URL = "https://files.catbox.moe/ndak2c.jpg"
-TELEGRAM_VIDEO_URL = "https://files.catbox.moe/cvbagx.jpeg"
-STREAM_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-SOUNCLOUD_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-YOUTUBE_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
-SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/cvbagx.jpeg"
+PLAYLIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+STATS_IMG_URL = "https://files.catbox.moe/uwstab.jpg"
+TELEGRAM_AUDIO_URL = "https://files.catbox.moe/7ut9uj.jpg"
+TELEGRAM_VIDEO_URL = "https://files.catbox.moe/7ut9uj.jpg"
+STREAM_IMG_URL = "https://envs.sh/SnH.jpg"
+SOUNCLOUD_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+YOUTUBE_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+SPOTIFY_ARTIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+SPOTIFY_ALBUM_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+SPOTIFY_PLAYLIST_IMG_URL = "https://files.catbox.moe/7ut9uj.jpg"
+
 
 def time_to_seconds(time):
     stringt = str(time)
@@ -87,3 +87,12 @@ DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 
 if SUPPORT_CHANNEL:
     if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHANNEL url is wrong. Please ensure that it starts with https://"
+        )
+
+if SUPPORT_CHAT:
+    if not re.match("(?:http|https)://", SUPPORT_CHAT):
+        raise SystemExit(
+            "[ERROR] - Your SUPPORT_CHAT url is wrong. Please ensure that it starts with https://"
+        )

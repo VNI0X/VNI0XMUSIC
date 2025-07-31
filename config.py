@@ -19,6 +19,10 @@ MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", None)
 PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", None)
 
+# YouTube Api Setup —
+BASE_API_URL = getenv("BASE_API_URL", "https://xyz.spotifytech.shop")
+BASE_API_KEY = getenv("BASE_API_KEY", "8de65623506d05c51fcf90ee3e97102f")
+
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 900))
 
 # Chat id of a group for logging bot's activities

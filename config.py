@@ -1,8 +1,9 @@
 import os
-from pyrogram import filters
+from os import getenv
 from dotenv import load_dotenv
 
 load_dotenv()
+
 
 # Get this value from my.telegram.org/apps
 API_ID = int(os.getenv("API_ID", 0))

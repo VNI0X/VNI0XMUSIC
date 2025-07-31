@@ -1,4 +1,12 @@
 import re
+from os import getenv
+
+from dotenv import load_dotenv
+from pyrogram import filters
+
+load_dotenv()
+
+API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 
 BOT_TOKEN = getenv("BOT_TOKEN")
@@ -17,6 +25,7 @@ HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 UPSTREAM_REPO = getenv("UPSTREAM_REPO")
 UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "Master")
 GIT_TOKEN = getenv("GIT_TOKEN")
+
 
 SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/SANATANI_TECH")
 SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SANATANI_SUPPORT")

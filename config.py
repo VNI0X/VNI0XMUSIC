@@ -87,5 +87,5 @@ if SUPPORT_CHAT:
     if not re.match(r"(?:http|https)://", SUPPORT_CHAT):
         raise SystemExit("[ERROR] - SUPPORT_CHAT URL is invalid. It must start with https://")
 
-# Add this if your code needs SONG_DOWNLOAD_DURATION
-SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION", "1800"))
+SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", 1800))  # default 30 minutes
+

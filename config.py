@@ -1,91 +1,85 @@
-import re
 import os
-from os import getenv
-
-from dotenv import load_dotenv
 from pyrogram import filters
+from dotenv import load_dotenv
 
 load_dotenv()
 
 # Get this value from my.telegram.org/apps
-API_ID = int(getenv("API_ID", None))
-API_HASH = getenv("API_HASH", None)
+API_ID = int(os.getenv("API_ID", 0))
+API_HASH = os.getenv("API_HASH", "")
 
-# Get your token from @BotFather on Telegram.
-BOT_TOKEN = getenv("BOT_TOKEN", None)
+# Get your token from @BotFather on Telegram
+BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 
 # Get your mongo url from cloud.mongodb.com
-MONGO_DB_URI = getenv("MONGO_DB_URI", None)
-MUSIC_BOT_NAME = getenv("MUSIC_BOT_NAME", None)
-PRIVATE_BOT_MODE = getenv("PRIVATE_BOT_MODE", None)
+MONGO_DB_URI = os.getenv("MONGO_DB_URI", "")
+MUSIC_BOT_NAME = os.getenv("MUSIC_BOT_NAME", "")
+PRIVATE_BOT_MODE = os.getenv("PRIVATE_BOT_MODE", "False")
 
-DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 900))
+# Duration limit
+DURATION_LIMIT_MIN = int(os.getenv("DURATION_LIMIT", "900"))
 
-# Chat id of a group for logging bot's activities
-LOGGER_ID = int(getenv("LOGGER_ID", None))
+# Chat ID of a group for logging bot's activities
+LOGGER_ID = int(os.getenv("LOGGER_ID", "0"))
 
-# Get this value from @MissRose_Bot on Telegram by /id
-OWNER_ID = int(getenv("OWNER_ID", None))
+# Get this value from @MissRose_Bot by using /id
+OWNER_ID = int(os.getenv("OWNER_ID", "0"))
 
-## Fill these variables if you're deploying on heroku.
-# Your heroku app name
-HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
-# Get it from http://dashboard.heroku.com/account
-HEROKU_API_KEY = getenv("HEROKU_API_KEY")
+# Heroku
+HEROKU_APP_NAME = os.getenv("HEROKU_APP_NAME", "")
+HEROKU_API_KEY = os.getenv("HEROKU_API_KEY", "")
 
-UPSTREAM_REPO = getenv(
-    "UPSTREAM_REPO",
-    "https://github.com/VNI0X/VNI0XMUSIC",
-)
-UPSTREAM_BRANCH = getenv("UPSTREAM_BRANCH", "main")
-GIT_TOKEN = getenv(
-    "GIT_TOKEN", None
-)  # Fill this variable if your upstream repository is private
+# GitHub
+UPSTREAM_REPO = os.getenv("UPSTREAM_REPO", "https://github.com/VNI0X/VNI0XMUSIC")
+UPSTREAM_BRANCH = os.getenv("UPSTREAM_BRANCH", "main")
+GIT_TOKEN = os.getenv("GIT_TOKEN", "")
 
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/HEROKU_CLUB")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
+# Optional API config
+BASE_API_KEY = os.getenv("BASE_API_KEY", "your-api-key")
+BASE_API_URL = os.getenv("BASE_API_URL", "https://your-api-url.com")
 
-# Set this to True if you want the assistant to automatically leave chats after an interval
-AUTO_LEAVING_ASSISTANT = bool(getenv("AUTO_LEAVING_ASSISTANT", False))
+# Support
+SUPPORT_CHANNEL = os.getenv("SUPPORT_CHANNEL", "https://t.me/HEROKU_CLUB")
+SUPPORT_CHAT = os.getenv("SUPPORT_CHAT", "https://t.me/NOBITA_SUPPORT")
 
-# Auto Gcast/Broadcast Handler (True = broadcast on , False = broadcast off During Hosting, Dont Do anything here.)
-AUTO_GCAST = os.getenv("AUTO_GCAST")
+# Auto leaving settings
+AUTO_LEAVING_ASSISTANT = os.getenv("AUTO_LEAVING_ASSISTANT", "False").lower() == "true"
 
-# Auto Broadcast Message That You Want Use In Auto Broadcast In All Groups.
-AUTO_GCAST_MSG = getenv("AUTO_GCAST_MSG", "")
+# Auto Gcast (Broadcast)
+AUTO_GCAST = os.getenv("AUTO_GCAST", "False").lower() == "true"
+AUTO_GCAST_MSG = os.getenv("AUTO_GCAST_MSG", "")
 
-# Get this credentials from https://developer.spotify.com/dashboard
-SPOTIFY_CLIENT_ID = getenv("SPOTIFY_CLIENT_ID", "bcfe26b0ebc3428882a0b5fb3e872473")
-SPOTIFY_CLIENT_SECRET = getenv("SPOTIFY_CLIENT_SECRET", "907c6a054c214005aeae1fd752273cc4")
+# Spotify credentials
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID", "bcfe26b0ebc3428882a0b5fb3e872473")
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET", "907c6a054c214005aeae1fd752273cc4")
 
+# Playlist limits
+SERVER_PLAYLIST_LIMIT = int(os.getenv("SERVER_PLAYLIST_LIMIT", "50"))
+PLAYLIST_FETCH_LIMIT = int(os.getenv("PLAYLIST_FETCH_LIMIT", "25"))
 
-# Maximum limit for fetching playlist's track from youtube, spotify, apple links.
-SERVER_PLAYLIST_LIMIT = int(getenv("SERVER_PLAYLIST_LIMIT", "50"))
-PLAYLIST_FETCH_LIMIT = int(getenv("PLAYLIST_FETCH_LIMIT", "25"))
+# Song duration download limit (in seconds)
+SONG_DOWNLOAD_DURATION = int(os.getenv("SONG_DOWNLOAD_DURATION", "180"))
+SONG_DOWNLOAD_DURATION_LIMIT = int(os.getenv("SONG_DOWNLOAD_DURATION_LIMIT", "2000"))
 
-SONG_DOWNLOAD_DURATION = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "180"))
-SONG_DOWNLOAD_DURATION_LIMIT = int(getenv("SONG_DOWNLOAD_DURATION_LIMIT", "2000"))
+# File size limits (in bytes)
+TG_AUDIO_FILESIZE_LIMIT = int(os.getenv("TG_AUDIO_FILESIZE_LIMIT", "104857600"))  # 100MB
+TG_VIDEO_FILESIZE_LIMIT = int(os.getenv("TG_VIDEO_FILESIZE_LIMIT", "1073741824"))  # 1GB
 
-# Telegram audio and video file size limit (in bytes)
-TG_AUDIO_FILESIZE_LIMIT = int(getenv("TG_AUDIO_FILESIZE_LIMIT", 104857600))
-TG_VIDEO_FILESIZE_LIMIT = int(getenv("TG_VIDEO_FILESIZE_LIMIT", 1073741824))
-# Checkout https://www.gbmb.org/mb-to-bytes for converting mb to bytes
+# String sessions
+STRING1 = os.getenv("STRING_SESSION", None)
+STRING2 = os.getenv("STRING_SESSION2", None)
+STRING3 = os.getenv("STRING_SESSION3", None)
+STRING4 = os.getenv("STRING_SESSION4", None)
+STRING5 = os.getenv("STRING_SESSION5", None)
 
-
-# Get your pyrogram v2 session from @Strinng_Session_Bot on Telegram
-STRING1 = getenv("STRING_SESSION",  None)
-STRING2 = getenv("STRING_SESSION2", None)
-STRING3 = getenv("STRING_SESSION3", None)
-STRING4 = getenv("STRING_SESSION4", None)
-STRING5 = getenv("STRING_SESSION5", None)
-
-
+# Internal variables (do not touch)
 BANNED_USERS = filters.user()
 adminlist = {}
 lyrical = {}
 votemode = {}
 autoclean = []
 confirmer = {}
+
 
 
 START_IMG_URL = getenv(

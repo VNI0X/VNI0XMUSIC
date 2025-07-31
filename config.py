@@ -1,11 +1,13 @@
 import os
-from os import getenv
+import os
+import re  
+from pyrogram import filters
 from dotenv import load_dotenv
-from pyrogram import filters  
 
 load_dotenv()
 
-BANNED_USERS = filters.user()
+if not re.match("(?:http|https)://", SUPPORT_CHANNEL):
+    # कुछ validation code
 
 
 
